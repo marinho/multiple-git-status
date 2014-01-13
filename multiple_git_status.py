@@ -26,7 +26,7 @@ def get_git_status(folder):
 
     if output in ("nothing to commit, working directory clean", "# Untracked files:"):
         return "OK"
-    elif output in ("# Changes not staged for commit:",):
+    elif output in ("# Changes not staged for commit:", "# Changes to be committed:"):
         return "Pending commit"
 
     return output
