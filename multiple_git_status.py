@@ -46,7 +46,7 @@ def main():
 
         for repo in repos:
             status = get_git_status(repo)
-            if status == "OK":
+            if status == "OK" or "Your branch is up-to-date with" in status or "Untracked files:" in status:
                 continue
             elif status == "Pending commit":
                 colour = Fore.RED
