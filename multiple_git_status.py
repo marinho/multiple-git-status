@@ -21,15 +21,18 @@ def get_git_status(folder):
     curdir = os.path.abspath(os.curdir)
     os.chdir(folder)
     output = subprocess.check_output(["git", "status"])
-    output = output.split("\n")[1]
+    line1 = output.split("\n")[1]
     os.chdir(curdir)
 
-    if output in ("nothing to commit, working directory clean", "# Untracked files:"):
+    if any(["nothing to commit, working directory clean" in output,
+            "nothing added to commit but untracked files present" in output]):
         return "OK"
-    elif output in ("# Changes not staged for commit:", "# Changes to be committed:"):
+    #if output in ("nothing to commit, working directory clean", "# Untracked files:"):
+    #    return "OK"
+    elif line1 in ("# Changes not staged for commit:", "# Changes to be committed:"):
         return "Pending commit"
 
-    return output
+    return line1
 
 
 def main():
@@ -46,7 +49,7 @@ def main():
 
         for repo in repos:
             status = get_git_status(repo)
-            if status == "OK" or "Your branch is up-to-date with" in status or "Untracked files:" in status:
+            if status == "OK" or "Untracked files:" in status:
                 continue
             elif status == "Pending commit":
                 colour = Fore.RED

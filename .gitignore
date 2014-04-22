@@ -12,3 +12,4 @@ build/scripts-2.7/london-admin.py
 .project
 .pydevproject
 .settings
+env/
