@@ -37,10 +37,11 @@ def get_git_status(folder):
 def main():
     previous_dir = os.curdir
 
-    if len(sys.argv) > 1:
-        folders = sys.argv[1:]
-    else:
-        folders = []
+    if len(sys.argv) <= 1:
+        print "You must inform folders to watch. i.e. multiple-git-status.py /home/jose/"
+        return
+
+    folders = sys.argv[1:]
 
     for folder in folders:
         os.chdir(folder)
