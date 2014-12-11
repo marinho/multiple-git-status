@@ -39,6 +39,8 @@ def main():
 
     if len(sys.argv) > 1:
         folders = sys.argv[1:]
+    else:
+        folders = []
 
     for folder in folders:
         os.chdir(folder)
